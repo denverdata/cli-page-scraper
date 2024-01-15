@@ -9,6 +9,9 @@ cli-page-scraper is a command-line interface tool that allows users to scrape co
 - Handles redirects and reports the process.
 - Supports multiple character encodings for content output.
 
+## Source
+git clone https://github.com/denverdata/cli-page-scraper
+
 ## Installation
 
 Ensure you have Node.js installed, then install cli-page-scraper globally using npm:

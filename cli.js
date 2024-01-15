@@ -1,4 +1,4 @@
-4#!/usr/bin/env node
+#!/usr/bin/env node
 const { program } = require('commander');
 const validateUrl = require('./utils/validateUrl.js');
 const validateOutputPath = require('./utils/validateOutputPath.js');
