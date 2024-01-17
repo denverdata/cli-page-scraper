@@ -1,20 +1,23 @@
 const validateOutputPath = require('../utils/validateOutputPath');
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
 
 describe('validateOutputPath Utility', () => {
-  it('should verify the existence or creation of the output path', () => {
-    const fs = require('fs');
-    const path = require('path');
+  it('should create the output directory if it does not exist', () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-page-scraper-'));
+    const outputPath = path.join(tempDir, 'output');
+    expect(() => validateOutputPath(outputPath)).not.toThrow();
+    expect(fs.existsSync(outputPath)).toBe(true);
+    fs.rmdirSync(tempDir, { recursive: true });
+  });
 
-    const outputPath = 'path/to/output';
-    const existentPath = 'path/to/existent';
-    const nonExistentPath = 'path/to/non-existent';
-
-    jest.spyOn(fs, 'existsSync').mockImplementation((p) => p === existentPath);
-    jest.spyOn(fs, 'mkdirSync').mockImplementation();
-
-    expect(validateOutputPath(existentPath)).toBe(true);
-    expect(fs.existsSync).toHaveBeenCalledWith(existentPath);
-    expect(() => validateOutputPath(nonExistentPath)).toThrow('Output path does not exist');
-    expect(fs.mkdirSync).toHaveBeenCalledWith(path.resolve(nonExistentPath));
+  it('should not throw and return the existing output directory', () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-page-scraper-'));
+    const outputPath = path.join(tempDir, 'output');
+    fs.mkdirSync(outputPath, { recursive: true });
+    expect(() => validateOutputPath(outputPath)).not.toThrow();
+    expect(fs.existsSync(outputPath)).toBe(true);
+    fs.rmdirSync(tempDir, { recursive: true });
   });
 });

@@ -1,5 +1,5 @@
 {
-  "name": "cli-page-scraper",
+  "name": "cli-page-scraper-unique",
   "version": "0.1.0",
   "description": "A command-line interface tool designed for individual web page scraping.",
   "main": "index.js",

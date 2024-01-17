@@ -10,11 +10,11 @@ describe('CLI Integration Tests', () => {
       { name: 'utility2', args: ['arg2'] }
     ];
     // Mock utilities
-    jest.mock('../src/utils', () => ({
+    jest.mock('../utils', () => ({
       utility1: jest.fn(() => 'result1'),
       utility2: jest.fn(() => 'result2')
     }));
-    const utils = require('../src/utils');
+    const utils = require('../utils');
     // Execute CLI command with arguments
     const execSync = require('child_process').execSync;
     const output = execSync(`${command} ${args.join(' ')}`).toString();
